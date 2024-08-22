@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatsRocket Level Save</title>
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Ubuntu, sans-serif;
+            background-image: url('https://wallpapers.com/images/featured/rocket-aq6joa03u46mmn1y.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        #container {
+            background-color: #c2c2c2;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #888;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #allcodes {
+            margin-top: 20px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Level Save</h1>
+        <div id="inputs">
+            <h2>Enter Level</h2>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" placeholder="Enter level name"><br>
+
+            <label for="code">Code:</label><br>
+            <input type="text" id="code" placeholder="Enter level code"><br>
+
+            <button onclick="submit()">Save Level</button>
+        </div>
+
+        <div id="codes">
+            <h2>Get Your Levels!</h2>
+            <label for="nameToget">Level Name:</label><br>
+            <input type="text" id="nameToget" placeholder="Enter level name"><br>
+            <button onclick="get()">Get Code</button>
+
+            <p id="allcodes">Enter your level name to get your code!</p>
+        </div>
+    </div>
+
+    <script>
+        function submit() {
+            const nameInput = document.getElementById('name').value.trim();
+            const codeInput = document.getElementById('code').value.trim();
+
+            if (nameInput && codeInput) {
+                localStorage.setItem(nameInput, codeInput);
+                alert('Level saved successfully!');
+                document.getElementById('name').value = '';
+                document.getElementById('code').value = '';
+            } else {
+                alert('Please enter both a name and code.');
+            }
+        }
+
+        function get() {
+            const nameToGet = document.getElementById('nameToget').value.trim();
+            const levelCode = localStorage.getItem(nameToGet);
+
+            if (levelCode) {
+                document.getElementById('allcodes').textContent = `Code for "${nameToGet}": ${levelCode}`;
+            } else {
+                document.getElementById('allcodes').textContent = 'No code found for this level!';
+            }
+        }
+    </script>
+</body>
+</html>
